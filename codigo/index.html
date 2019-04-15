@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Curso VueJS 2</title>
+	</head>
+	<body>
+		<main>
+			<!-- INTERPOLACIÓN (Imprimir el contenido de una variable del modelo/ instancia V--> 
+			<h1> {{ texto }} </h1> 
+			<h2 v-text="texto"> </h2> <!-- forma 2 de imprimir informacion, arroja error sobre  correcto uso del componente principal (definición) se arregla renombrando la etiqueta como main (que es reconocida por Vue) -->
+			<hr>
+
+			<!-- Two way data binding / enlace de datos bidireccional y reactividad -->
+			<input type="" v-model="nombre" name=""> <!-- mediante la directiva v-model se vincula una propiedad del modelo (nombre), esto provoca que al modificar el valor del input en automatico se modifica el valor de la propiedad vnculada -->
+
+			<!-- MODIFICA LA VISTA -->
+			<p> El nombre es: {{nombre}} </p>
+			<!-- MODIFICA A NIVEL DE MODELO -->
+			 <!-- <pre> etiqueta que proporciona V para poder ver los datos mientras se desarrolla 
+				{{$data}} <!-- $ para acceder a los atributos del *OBJ compuestos*
+			</pre> --> 
+			<hr>
+
+			Nota: <input type="text" v-model="nota">
+			<!-- Imprime(v-text) el valor de nota solo si existe (v-if)calificación -->
+
+			<!-- DIRECTIAS CONDICIONALES -->
+			<strong v-if="nota && nota > 5 && nota < 10 "> Tu calificación es mayor a 5 Cool! </strong>
+
+			<strong v-else-if="nota && nota == 10"> ¡¡¡ Todo cool !!!</strong>
+
+			<span v-else> No aprobaste :( </span>
+			<hr>
+
+			<!-- DIRECTIVAS  DE BUCLES -->
+			<h1> Lista de peliculas (array)</h1>
+			<ol>
+				<!-- pelicula (variable) peliculas (array sobre el que se itera) -->
+				<li v-for="pelicula in peliculas"> {{ pelicula }} </li> 
+			</ol>
+			
+			<h1> Lista de frutas (array de objetos)</h1>
+			<ul>
+				<!-- (elemento, indice (numero del elemento del array que se va a recorrer)) -->
+				<li v-for="(fruta,index) in frutas"> 
+				{{index}}: {{ fruta.nombre }} - {{fruta.temporada}} 
+			</li> 
+			</ul>
+
+			<h1> Lista de elementos de Superfruta (objetos)</h1>
+			<ul>
+				<!-- value: valor de la propiedad que se recorre, 
+					key: nombre de la propiedad,
+					index: índice
+				  -->
+				<li v-for="(value, key, index) in superfruta"> 
+				{{index}}: {{ key }} - {{value}} 
+			</li> 
+			</ul>
+			<hr>
+			
+			<!-- EVENTOS -->
+
+			<h1> Lista de peliculas (array)</h1>
+			<ol>
+				<li v-for="(pelicula, index) in peliculas"> {{ pelicula }} 
+					<button @click="borrarPelicula(index)">Eliminar pelicula</button>
+				</li> 
+			</ol>
+			<!-- Ejemplos evento click -->
+			<!-- <button v-on:click="crearPelicula()" >Crear pelicula</button>
+			<button @click="borrarPelicula()">Eliminar pelicula</button>
+			 -->
+			<h1>Peliculas</h1>
+			<form @submit.prevent="crearPelicula()">
+				<input type="text" v-model="peliculaNueva">
+				<input type="submit" value="Guardar"></button>
+			</form>
+			<hr>
+			<!-- PROPIEDADES COMPUTADAS -->
+			<!-- Permiten procesar información de una propiedad y devolver un valor para evitar tener demasiada lógica en nuestra vista/modelo/componente-->
+			
+			<!-- <h1> {{nombre + ' ' + apellido}} </h1> se cambia por la propiedad computada-->
+
+			<h1> {{nombreApellido | mayusculas}} </h1>
+			
+			<h4>Lista odenada</h4>
+
+			<!-- Ordenamiento -->
+			<ol>
+				<li v-for="(pelicula, index) in peliculasOrdenadas"> 
+					{{ pelicula }}
+				</li> 
+			</ol>
+			
+			<!-- Busqueda -->
+			<h4> Buscar fruta </h4>
+			<input type="search" v-model="busqueda" placeholder="buscar">
+			<ol>
+				<li v-for="(fruta, index) in buscarFruta"> 
+					{{ fruta.nombre | mayusculas }}
+				</li> 
+			</ol>
+
+		</main> 
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+		<script src="js/main.js"></script>
+	</body>
